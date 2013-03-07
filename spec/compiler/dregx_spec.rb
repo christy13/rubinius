@@ -10,9 +10,10 @@ describe "A Dregx node" do
       compile do |g|
         g.push_cpath_top
         g.find_const :Regexp
+        g.push_const :String
         g.push_literal "("
         g.push_literal ")"
-        g.string_build 2
+        g.send_stack :interpolate_join, 2
         g.push 0
         g.send :new, 2
       end
@@ -22,11 +23,10 @@ describe "A Dregx node" do
       compile do |g|
         g.push_cpath_top
         g.find_const :Regexp
-
+        g.push_const :String
         g.push_literal "a"
         g.push_literal "b"
-        g.string_build 2
-
+        g.send_stack :interpolate_join, 2
         g.push 0
         g.send :new, 2
       end
@@ -41,11 +41,12 @@ describe "A Dregx node" do
       compile do |g|
         g.push_cpath_top
         g.find_const :Regexp
+        g.push_const :String
         g.push_literal "("
         g.push :nil
         g.meta_to_s
         g.push_literal ")"
-        g.string_build 3
+        g.send_stack :interpolate_join, 3
         g.push 0
         g.send :new, 2
       end
@@ -55,12 +56,12 @@ describe "A Dregx node" do
       compile do |g|
         g.push_cpath_top
         g.find_const :Regexp
-
+        g.push_const :String
         g.push_literal "a"
         g.push :nil
         g.meta_to_s
         g.push_literal "b"
-        g.string_build 3
+        g.send_stack :interpolate_join, 3
 
         g.push 0
         g.send :new, 2
@@ -72,6 +73,7 @@ describe "A Dregx node" do
     compile do |g|
       g.push_cpath_top
       g.find_const :Regexp
+      g.push_const :String
 
       g.push_literal "x"    # 1
 
@@ -82,7 +84,7 @@ describe "A Dregx node" do
 
       g.push_literal "y"    # 3
 
-      g.string_build 3
+      g.send_stack :interpolate_join, 3
 
       g.push 0
       g.send :new, 2
@@ -93,11 +95,9 @@ describe "A Dregx node" do
     compile do |g|
       g.push_cpath_top
       g.find_const :Regexp
-
       g.push_ivar :@rakefile
       g.meta_to_s
       g.string_build 1
-
       g.push 0
       g.send :new, 2
     end
@@ -107,11 +107,9 @@ describe "A Dregx node" do
     compile do |g|
       g.push_cpath_top
       g.find_const :Regexp
-
       g.push 1
       g.meta_to_s
       g.string_build 1
-
       g.push 512
       g.send :new, 2
     end
@@ -122,6 +120,7 @@ describe "A Dregx node" do
       memoize do
         g.push_cpath_top
         g.find_const :Regexp
+        g.push_const :String
 
         g.push_const :IAC     # 1
         g.meta_to_s
@@ -129,7 +128,7 @@ describe "A Dregx node" do
         g.push_const :SB      # 2
         g.meta_to_s
 
-        g.string_build 2
+        g.send_stack :interpolate_join, 2
 
         g.push 512
         g.send :new, 2
@@ -142,6 +141,7 @@ describe "A Dregx node" do
       memoize do
         g.push_cpath_top
         g.find_const :Regexp
+        g.push_const :String
 
         g.push_literal "x"    # 1
 
@@ -152,7 +152,7 @@ describe "A Dregx node" do
 
         g.push_literal "y"    # 3
 
-        g.string_build 3
+        g.send_stack :interpolate_join, 3
 
         g.push 0
         g.send :new, 2

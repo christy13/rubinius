@@ -27,10 +27,8 @@ describe "An Array node" do
     compile do |g|
       g.push_literal "a"
       g.string_dup
-
       g.push_literal "\#{@b}"
       g.string_dup
-
       g.push_literal "c"
       g.string_dup
       g.make_array 3
@@ -53,11 +51,9 @@ describe "An Array node" do
     compile do |g|
       g.push_literal "a"
       g.string_dup
-
       g.push_ivar :@b
       g.meta_to_s
       g.string_build 1
-
       g.push_literal "c"
       g.string_dup
       g.make_array 3

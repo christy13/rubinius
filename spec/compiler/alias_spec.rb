@@ -22,19 +22,20 @@ describe "An Alias node" do
 
     compile do |g|
       g.push_scope
+      g.push_const :String
 
       g.push_literal "y"
       g.push 1
       g.meta_to_s
-      g.string_build 2
+      g.send_stack :interpolate_join, 2
       g.send :to_sym, 0, true
+      g.push_const :String
 
       g.push_literal "x"
       g.push 2
       g.meta_to_s
-      g.string_build 2
+      g.send_stack :interpolate_join, 2
       g.send :to_sym, 0, true
-
       g.send :alias_method, 2, true
     end
   end

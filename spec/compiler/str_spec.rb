@@ -30,6 +30,7 @@ describe "A Str node" do
     ruby
 
     compile do |g|
+      g.push_const :String
       g.push_literal "file = "
 
       g.push_scope
@@ -38,7 +39,7 @@ describe "A Str node" do
 
       g.push_literal "\n"
 
-      g.string_build 3
+      g.send_stack :interpolate_join, 3
     end
   end
 

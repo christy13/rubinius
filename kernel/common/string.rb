@@ -62,9 +62,7 @@ class String
   end
 
   def +(other)
-    other = StringValue(other)
-    Rubinius::Type.check_encoding_compatible self, other
-    String.new(self) << other
+    String.new(self) << StringValue(other)
   end
 
   def <=>(other)
@@ -1174,5 +1172,9 @@ class String
 
   def shared!
     @shared = true
+  end
+
+  def self.interpolate_join(*s)
+    s.join ""
   end
 end

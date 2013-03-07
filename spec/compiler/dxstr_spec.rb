@@ -13,12 +13,13 @@ describe "A Dxstr node" do
 
       g.push :self
 
-      g.push_literal "touch "
+      g.push_const :String
 
+      g.push_literal "touch "
       g.push_local 0
       g.meta_to_s
 
-      g.string_build 2
+      g.send_stack :interpolate_join, 2
 
       g.send :"`", 1, true
     end
